@@ -1,0 +1,139 @@
+.about-us {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  height: calc(100vh - 114px);
+  padding: 0 8rem;
+  gap: 5rem;
+
+  .simple-half-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+  }
+  .about-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > img {
+      object-fit: contain;
+    }
+  }
+}
+
+.about-service {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 5rem;
+  margin: 114px 0;
+  .serviceList {
+    .products {
+      display: grid;
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+      grid-gap: 1rem;
+      > div {
+        display: flex;
+        flex-direction: column;
+        &:last-child {
+          display: none;
+        }
+        .product-title {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          margin-bottom: 15px;
+          > h5 {
+            font-size: 16px;
+            line-height: normal;
+            margin-top: 15px;
+          }
+          .serviceIcon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            border: 1px solid #00498e;
+            > img {
+              max-width: 45px;
+              height: 45px;
+            }
+          }
+        }
+        .product-desc {
+          padding-left: 1.5rem;
+          ul {
+            li {
+              list-style: disc;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.timeline {
+  height: calc(100vh - 114px);
+  margin-bottom: 114px;
+  padding: 0 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: hsla(0, 0%, 94.1%, 0.6);
+  .sub-title {
+    margin-bottom: 2rem;
+  }
+  .slider-time {
+    width: 100%;
+    .slick-slide {
+      &:nth-child(even) {
+        > div {
+          .time {
+            display: flex !important;
+            flex-direction: column-reverse;
+            .arrow-timeline {
+              transform: rotate(180deg);
+            }
+            .content {
+              border-top: 1px solid #bbb;
+            }
+          }
+        }
+      }
+      &:nth-child(odd) {
+        > div {
+          .time {
+            .content {
+              border-bottom: 1px solid #bbb;
+            }
+          }
+        }
+      }
+      .time {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        width: 320px;
+
+        .arrow-timeline {
+          display: flex;
+          justify-content: center;
+          height: 168px;
+          margin: 50px 0;
+          > img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+            object-position: center;
+          }
+        }
+      }
+    }
+  }
+}
