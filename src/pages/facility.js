@@ -2,14 +2,11 @@ import React from "react";
 import Layout from "../components/layouts/Layout";
 import WPAPI from "wpapi";
 import config, { fetcher } from "../config";
-import PortfolioFirst from "../components/portfolio/portfolioFirst";
 
-const Portfolio = ({ mainMenu, topMenu, data }) => {
+const Facility = ({ mainMenu, topMenu, data }) => {
   return (
     <Layout mainMenu={mainMenu} topMenu={topMenu}>
-      <div className="page">
-        <PortfolioFirst data={data} clas="portfolio" />
-      </div>
+      <div className="page"></div>
     </Layout>
   );
 };
@@ -25,19 +22,7 @@ export async function getServerSideProps(context) {
     `${config(context).apiUrl}/menus/v1/menus/nav-menu-top`
   );
 
-  const catId = await wp
-    .categories()
-    .slug(`portfolio`)
-    .embed()
-    .then((data) => data[0]);
-
-  const data = await wp
-    .posts()
-    .categories((catId || {}).id)
-    .perPage(100)
-    .embed();
-
-  return { props: { mainMenu, topMenu, data } };
+  return { props: { mainMenu, topMenu } };
 }
 
-export default Portfolio;
+export default Facility;
