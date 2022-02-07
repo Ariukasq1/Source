@@ -5,12 +5,14 @@
   align-items: center;
   padding: 0 5rem;
   position: relative;
+
   .sliderText {
     width: 100%;
     > h1 {
       font-size: 80px;
       line-height: normal;
       margin-bottom: 20px;
+      font-weight: 600;
     }
     > h2 {
       font-weight: 500;
@@ -18,15 +20,16 @@
     }
   }
 }
+
 // home capabilitiy
 .homeCapability {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   height: calc(100vh - 114px);
+
   .capability-home-text {
     display: flex;
     align-items: center;
-    padding: 0 5rem;
+    padding: 0 8rem;
+
     > div {
       > div {
         margin-bottom: 20px;
@@ -38,10 +41,11 @@
 // home industry
 .homeIndustries {
   height: calc(100vh - 114px);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+
   .industry-button {
-    padding: 5rem 0 0 10rem;
+    padding: 2rem 0 0 8rem;
+    position: relative;
+
     .big-buttons {
       font-size: 5rem;
       font-weight: 700;
@@ -49,13 +53,18 @@
       line-height: normal;
       cursor: pointer;
       margin-bottom: 2rem;
+
+      span {
+        margin-left: 20px;
+      }
     }
 
     .read-more-button {
-      margin-top: 4rem !important;
+      margin-top: 3rem;
     }
   }
 }
+
 // home brands
 .homeBrands {
   height: calc(100vh - 114px);
@@ -63,6 +72,13 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  .gold-title {
+    margin-bottom: 5px;
+  }
+  .sub-title {
+    margin-bottom: 30px;
+  }
+
   .brandList,
   .brandsList {
     width: 100%;
@@ -70,6 +86,7 @@
     .slick-slide {
       max-width: 440px !important;
     }
+
     .brand-logo {
       width: 16rem;
       height: 4rem;
@@ -78,6 +95,7 @@
         object-position: left;
       }
     }
+
     .brand-image {
       height: 14rem;
       max-width: 420px;

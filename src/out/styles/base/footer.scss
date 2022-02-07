@@ -5,18 +5,21 @@ footer {
   padding: 0 12rem;
   display: flex;
   align-items: center;
+
   .footer {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 5rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    h2 {
+      margin-bottom: 2rem;
+      font-size: 1.125rem;
+      color: #fff;
+      font-weight: 700;
+    }
+
     p {
       margin-bottom: 1rem;
-    }
-    > div {
-      > p:first-child {
-        font-weight: 800;
-        margin-bottom: 2rem;
-      }
     }
 
     .contacts {
@@ -26,11 +29,11 @@ footer {
         > a {
           display: inline-block;
           cursor: pointer;
-          margin-right: 20px;
-          padding: 20px;
+          padding: 15px;
           line-height: 0;
           border-radius: 50%;
           color: #fff;
+          font-size: 1.8rem;
           &:hover {
             background-color: #fff;
             color: #262626;
@@ -44,6 +47,7 @@ footer {
         position: relative;
         margin: 0 0 2rem 0;
       }
+
       input,
       textArea {
         width: 100%;
@@ -55,15 +59,17 @@ footer {
         color: #e4e4e4;
         font-size: 1rem;
       }
+
       input {
-        height: 4rem;
         &:last-child {
           cursor: pointer;
         }
       }
+
       textArea {
-        height: 12rem;
+        height: 10rem;
       }
+
       label {
         position: absolute;
         left: 26px;
