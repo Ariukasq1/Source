@@ -1,200 +1,209 @@
 import React, { useState } from "react";
-import { __ } from "../../utils";
-import Link from "next/link";
-import { DownloadOutlined, PictureOutlined } from "@ant-design/icons";
+import { getData, __ } from "../../utils";
+import { DownloadOutlined } from "@ant-design/icons";
 
-const FirstChilds = ({ cats, post, childCats, childCats_child }) => {
+function handleScroll() {
+  window.scroll({
+    top: document.documentElement.scrollHeight,
+    left: 0,
+    behavior: "smooth",
+  });
+}
+
+const FirstChilds = ({
+  post,
+  cat,
+  childCats,
+  childCats_child,
+  childCats_child_childs,
+}) => {
   const { title } = post || {};
+  const { acf } = cat || {};
+  const { pdf_file } = acf || {};
 
-  const [product, setProduct] = useState();
-  const [parents, setParents] = useState();
-  const [productTwo, setProductTwo] = useState();
-  const [child, setChild] = useState();
+  const [firstID, setFirstID] = useState(0);
+  const [firstName, setFirstName] = useState();
 
-  const renderItems = (name, id, checker, child) => {
-    if (!checker) {
-      setProduct(name);
-    }
+  const [secondID, setSecondID] = useState(0);
+  const [secondName, setSecondName] = useState();
 
-    setProductTwo(name);
-
-    const test = childCats.filter((el) => {
-      if (!el[0] || el[0].parent !== id) {
-        return null;
-      }
-      return el[0];
-    });
-
-    setParents(test);
-
-    if (child) {
-      const test_child = childCats_child.map((el) => {
-        const result = el.filter((item) => {
-          if (!item[0] || item[0].parent !== child) {
+  const secondChild = (ID, Name) => {
+    return (
+      <div className="brand-details">
+        <div className="blue-title">
+          {Name} {__("Products")}
+        </div>
+        {childCats_child_childs.map((el, ind) => {
+          if (el.length === 0) {
             return null;
           }
-          return item;
-        });
-        return result;
-      });
 
-      test_child.filter((el) => {
-        if (el.length > 0) {
-          setChild(el[0]);
-        }
-      });
-    }
+          return (
+            <div key={ind}>
+              {el.map((parent, ind) => {
+                if (parent.length > 0 && parent[0].parent !== ID) {
+                  return null;
+                }
+
+                return (
+                  <div className="brochures" key={ind}>
+                    {parent.map((item, ind) => {
+                      const { acf, name, id } = item || {};
+                      const { bg_image, pdf_file } = acf || {};
+
+                      return (
+                        <div
+                          key={ind}
+                          className="one-brochure"
+                          style={{
+                            backgroundImage: `url(${bg_image})`,
+                          }}
+                        >
+                          <div
+                            className="broch-overlay"
+                            style={{
+                              opacity: bg_image ? "0.6" : "1",
+                            }}
+                          />
+                          <p>{name}</p>
+                          {pdf_file && (
+                            <a
+                              className="download"
+                              href={pdf_file}
+                              target="_blank"
+                              download
+                            >
+                              {__("Download")} <DownloadOutlined />
+                            </a>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
+  const firstChild = (ID, Name) => {
+    return (
+      <div className="brand-details">
+        <div className="blue-title">
+          {Name} {__("Products")}
+        </div>
+        {childCats_child.map((parent, ind) => {
+          if (parent.length > 0 && parent[0].parent !== ID) {
+            return null;
+          }
+          return (
+            <div className="brochures" key={ind}>
+              {parent.map((item, ind) => {
+                const { acf, name, id } = item || {};
+                const { bg_image, pdf_file } = acf || {};
+
+                return (
+                  <div
+                    key={ind}
+                    className="one-brochure"
+                    style={{
+                      backgroundImage: `url(${bg_image})`,
+                    }}
+                    onClick={() => {
+                      setSecondID(id);
+                      setSecondName(name);
+                      handleScroll();
+                    }}
+                  >
+                    <div
+                      className="broch-overlay"
+                      style={{
+                        opacity: bg_image ? "0.6" : "1",
+                      }}
+                    />
+                    <p>{name}</p>
+                    {pdf_file && (
+                      <a
+                        className="download"
+                        href={pdf_file}
+                        target="_blank"
+                        download
+                      >
+                        {__("Download")} <DownloadOutlined />
+                      </a>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+    );
   };
 
   return (
     <>
-      <div className="brand-first-child">
-        <div className="blue-title">
-          {(title || {}).rendered} {__("Products")}
-        </div>
-        <div className="child-grid">
-          {cats.map((item, ind) => {
-            const { bg_image, pdf_file, logo } = item.acf || {};
-            return (
-              <div
-                key={ind}
-                className="brand-child-list"
-                data-aos="fade-down"
-                data-aos-delay={200}
-                data-aos-easing="ease"
-                data-aos-duration="2000"
-                data-aos-offset="300"
-              >
-                <p>
-                  {item.name}
+      {childCats.length > 0 ? (
+        <div className="brand-details">
+          <div className="blue-title">
+            {(title || {}).rendered} {__("Products")}
+            {pdf_file && (
+              <a className="download" href={pdf_file} target="_blank" download>
+                <DownloadOutlined />
+                <span className="tooltip">{__("Download brochure")}</span>
+              </a>
+            )}
+          </div>
+
+          <div className="brochures">
+            {childCats.map((item, ind) => {
+              const { acf, name, id } = item || {};
+              const { bg_image, pdf_file } = acf || {};
+
+              return (
+                <div
+                  key={ind}
+                  className="one-brochure"
+                  style={{
+                    backgroundImage: `url(${bg_image})`,
+                  }}
+                  onClick={() => {
+                    setFirstID(id);
+                    setFirstName(name);
+                    setSecondID(0);
+                    handleScroll();
+                  }}
+                >
+                  <div
+                    className="broch-overlay"
+                    style={{
+                      opacity: bg_image ? "0.6" : "1",
+                    }}
+                  />
+                  <p>{name}</p>
                   {pdf_file && (
-                    <a href={pdf_file} target="_blank" download>
-                      <DownloadOutlined />
+                    <a
+                      className="download"
+                      href={pdf_file}
+                      target="_blank"
+                      download
+                    >
+                      {__("Download")} <DownloadOutlined />
                     </a>
                   )}
-                </p>
-                <Link href="#section3">
-                  <div
-                    className="image-wrapper"
-                    onClick={() => renderItems(item.name, item.id)}
-                  >
-                    {bg_image ? (
-                      <img src={bg_image} />
-                    ) : (
-                      <div className="blue-circle">
-                        <PictureOutlined />
-                      </div>
-                    )}
-                  </div>
-                </Link>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      {parents && (
-        <div id="section3">
-          <div className="brand-second-child">
-            <div className="blue-title">
-              {product} {__("Products")}
-            </div>
-
-            {parents.map((items, ind) => {
-              return (
-                <div key={ind} className="child-grid">
-                  {items.map((item, ind) => {
-                    const { bg_image, pdf_file, logo } = item.acf || {};
-                    return (
-                      <div
-                        key={ind}
-                        className="brand-child-list"
-                        data-aos="fade-down"
-                        data-aos-delay={200}
-                        data-aos-easing="ease"
-                        data-aos-duration="2000"
-                        data-aos-offset="300"
-                      >
-                        <p>
-                          {item.name}
-                          {pdf_file && (
-                            <a href={pdf_file} target="_blank" download>
-                              <DownloadOutlined />
-                            </a>
-                          )}
-                        </p>
-                        <Link href="#section4">
-                          <div
-                            className="image-wrapper"
-                            onClick={() =>
-                              renderItems(
-                                item.name,
-                                item.parent,
-                                "four",
-                                item.id
-                              )
-                            }
-                          >
-                            {bg_image ? (
-                              <img src={bg_image} />
-                            ) : (
-                              <div className="blue-circle">
-                                <PictureOutlined />
-                              </div>
-                            )}
-                          </div>
-                        </Link>
-                      </div>
-                    );
-                  })}
                 </div>
               );
             })}
           </div>
         </div>
-      )}
-      {child && (
-        <div id="section4">
-          <div className="brand-second-child">
-            <div className="blue-title">
-              {productTwo} {__("Products")}
-            </div>
-            <div className="child-grid">
-              {child.map((item, ind) => {
-                const { bg_image, pdf_file, logo } = item.acf || {};
-                return (
-                  <div
-                    key={ind}
-                    className="brand-child-list"
-                    data-aos="fade-down"
-                    data-aos-delay={200}
-                    data-aos-easing="ease"
-                    data-aos-duration="2000"
-                    data-aos-offset="300"
-                  >
-                    <p>
-                      {item.name}
-                      {pdf_file && (
-                        <a href={pdf_file} target="_blank" download>
-                          <DownloadOutlined />
-                        </a>
-                      )}
-                    </p>
-                    <div className="image-wrapper">
-                      {bg_image ? (
-                        <img src={bg_image} />
-                      ) : (
-                        <div className="blue-circle">
-                          <PictureOutlined />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      )}
+      ) : null}
+
+      {firstID !== 0 ? firstChild(firstID, firstName) : null}
+      {secondID !== 0 ? secondChild(secondID, secondName) : null}
     </>
   );
 };

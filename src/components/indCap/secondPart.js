@@ -1,6 +1,7 @@
 import React from "react";
 import { getData, SampleNextArrow, SamplePrevArrow } from "../../utils";
 import Slider from "react-slick";
+import { Col, Row } from "antd";
 
 const SecondPart = ({ post }) => {
   const { title, content, acf, _embedded } = post || {};
@@ -12,8 +13,16 @@ const SecondPart = ({ post }) => {
   const datas = (desc || "").split("<li>");
 
   return (
-    <div className="secondPart">
-      <div className="product-cards">
+    <Row className="secondPart">
+      <Col
+        xxl={12}
+        xl={12}
+        lg={12}
+        md={24}
+        sm={24}
+        xs={24}
+        className="product-cards"
+      >
         <div
           className="blue-title"
           dangerouslySetInnerHTML={{ __html: (supports || {}).title }}
@@ -30,19 +39,25 @@ const SecondPart = ({ post }) => {
             return (
               <div
                 key={ind}
-                className="card"
                 data-aos="fade-down"
-                data-aos-delay={ind * 100}
+                data-aos-delay={ind * 200}
                 data-aos-easing="ease"
                 data-aos-duration="2000"
                 data-aos-offset="300"
+                className="card"
                 dangerouslySetInnerHTML={{ __html: data }}
               />
             );
           })}
         </div>
-      </div>
-      <div
+      </Col>
+      <Col
+        xxl={12}
+        xl={12}
+        lg={12}
+        md={24}
+        sm={24}
+        xs={24}
         className="half-back-image-with-text"
         style={{ backgroundImage: `url(${getData(_embedded, "image")})` }}
       >
@@ -58,8 +73,8 @@ const SecondPart = ({ post }) => {
             }}
           />
         </div>
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 

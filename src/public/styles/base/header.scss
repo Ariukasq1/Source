@@ -9,36 +9,66 @@
   z-index: 999;
   background-color: #fff;
   justify-content: space-between;
+
   .logo {
     width: 6rem;
     object-fit: contain;
     object-position: center;
     cursor: pointer;
   }
+
   .menus {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+
+    .topMenu {
+      .topMenuList {
+        margin-left: auto;
+      }
+
+      a {
+        border-right: 1px solid #00498e;
+        font-weight: 400;
+        font-size: 0.875rem;
+
+        &:last-child {
+          border: none;
+        }
+      }
+
+      .topMenuLanguage {
+        margin-left: 20px;
+
+        a {
+          border: 0;
+          padding: 0;
+          color: #444;
+        }
+
+        > span {
+          margin: 0 10px;
+        }
+
+        .text-menuTextColor {
+          color: rgb(0, 72, 141);
+        }
+      }
+    }
+
     > div {
       display: flex;
+
       .botMenuList {
         border-right: 1px solid #00498e;
       }
-      .topMenuList {
-        margin-left: auto;
-        a {
-          border-right: 1px solid #00498e;
-          font-weight: 500;
-          &:last-child {
-            border: none;
-          }
-        }
-      }
+
       a {
         padding: 0 1rem;
-        font-weight: 800;
+        font-weight: 600;
         color: #00498e;
-        font-size: 1.125rem;
+        font-size: 1rem;
+
         &:hover {
           color: #5d7db8;
         }
@@ -47,8 +77,9 @@
         }
       }
     }
+
     .burger {
-      margin-left: 1rem;
+      margin-left: 2rem;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
@@ -56,7 +87,7 @@
       border: none;
       box-sizing: border-box;
       color: #00498e;
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
   }
 }
@@ -73,34 +104,61 @@
   flex-direction: column;
   justify-content: space-around;
   width: 90%;
-  max-width: 400px;
+  max-width: 480px;
   a {
     color: #fff;
     font-weight: 300;
     padding: 0 1rem;
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
+
   .topMenuList {
     margin-top: 10px;
     a {
       border-right: 1px solid #fff;
       font-weight: bold;
+      font-size: 0.8rem;
       &:last-child {
         border: none;
       }
     }
   }
+
+  .sideDrawerLanguage {
+    a {
+      font-size: 0.8rem;
+    }
+
+    span {
+      color: #fff;
+    }
+  }
+
+  .topMenuLanguage {
+    display: none;
+  }
+
   .SideMenu {
     .SideMenuList {
       display: flex;
       flex-direction: column;
       a {
         width: max-content;
+        font-size: 0.8rem;
+        font-weight: 100;
+        opacity: 0.5;
+        line-height: 1.5;
+        &:hover {
+          opacity: 1;
+        }
       }
       .titleMenu {
         margin-top: 10px;
+        font-weight: 700;
+        opacity: 1;
       }
     }
+
     .closeButton {
       position: absolute;
       top: 24px;

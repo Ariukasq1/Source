@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getData, SampleNextArrow, SamplePrevArrow, __ } from "../../utils";
 import Link from "next/link";
 import Slider from "react-slick";
+import { generateLink } from "../../config";
 
 const NewsList = ({ data, cats }) => {
   const innerNews = cats[0].id;
@@ -28,7 +29,7 @@ const NewsList = ({ data, cats }) => {
     prevArrow: <SamplePrevArrow />,
     responsive: [
       {
-        breakpoint: 992,
+        breakpoint: 991,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -67,8 +68,8 @@ const NewsList = ({ data, cats }) => {
           return (
             <Link
               key={ind}
-              href={"/[categories]/[detail]"}
-              as={`/newsroom/${news.slug}`}
+              href={"/news/[news]"}
+              as={generateLink(`/news/${news.slug}`)}
             >
               <div
                 className="slider-image-back"
@@ -77,7 +78,7 @@ const NewsList = ({ data, cats }) => {
                   backgroundImage: `url(${getData(news._embedded, "image")}})`,
                 }}
               >
-                <p dangerouslySetInnerHTML={{ __html: news.title.rendered }} />
+                <h2 dangerouslySetInnerHTML={{ __html: news.title.rendered }} />
               </div>
             </Link>
           );

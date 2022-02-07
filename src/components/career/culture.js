@@ -1,6 +1,7 @@
 import React from "react";
 import { __, getData } from "../../utils";
 import Link from "next/link";
+import { generateLink } from "../../config";
 
 const Culture = ({ data }) => {
   return (
@@ -15,8 +16,8 @@ const Culture = ({ data }) => {
             return (
               <Link
                 key={ind}
-                href={"/[categories]/[detail]"}
-                as={`/careers/${card.slug}#section2`}
+                href={"/careers/[careers]"}
+                as={generateLink(`/careers/${card.slug}`)}
               >
                 <div
                   className="big-card"
@@ -27,14 +28,16 @@ const Culture = ({ data }) => {
                   data-aos-offset="300"
                 >
                   <div className="big-card-image">
-                    <img src={getData(card._embedded, "image")} />
+                    <div>
+                      <img src={getData(card._embedded, "image")} />
+                    </div>
                   </div>
                   <div className="big-card-text">
                     <div
                       className="blue-title"
                       dangerouslySetInnerHTML={{ __html: card.title.rendered }}
                     />
-                    <div
+                    <p
                       dangerouslySetInnerHTML={{
                         __html: card.content.rendered,
                       }}

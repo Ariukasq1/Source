@@ -1,7 +1,8 @@
 import React from "react";
-import { getData, SampleNextArrow, SamplePrevArrow } from "../../utils";
+import { getData, SampleNextArrow, SamplePrevArrow, __ } from "../../utils";
 import Slider from "react-slick";
 import Link from "next/link";
+import { generateLink } from "../../config";
 
 const RelatedNews = ({ data, slug }) => {
   const settings = {
@@ -15,7 +16,7 @@ const RelatedNews = ({ data, slug }) => {
     prevArrow: <SamplePrevArrow />,
     responsive: [
       {
-        breakpoint: 1600,
+        breakpoint: 1199,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,
@@ -23,7 +24,7 @@ const RelatedNews = ({ data, slug }) => {
         },
       },
       {
-        breakpoint: 992,
+        breakpoint: 991,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -43,13 +44,14 @@ const RelatedNews = ({ data, slug }) => {
 
   return (
     <div className="newsRelated">
+      <div className="blue-title">{__("News Related")}</div>
       <Slider {...settings} className="two-row-slider">
         {data.map((news, ind) => {
           return (
             <Link
               key={ind}
-              href={`/[categories]/[detail]`}
-              as={`/newsroom/${news.slug}`}
+              href={"/news/[news]"}
+              as={generateLink(`/news/${news.slug}`)}
             >
               <div
                 className="slider-image-back"
@@ -58,7 +60,7 @@ const RelatedNews = ({ data, slug }) => {
                   backgroundImage: `url(${getData(news._embedded, "image")}})`,
                 }}
               >
-                <p dangerouslySetInnerHTML={{ __html: news.title.rendered }} />
+                <h2 dangerouslySetInnerHTML={{ __html: news.title.rendered }} />
               </div>
             </Link>
           );
